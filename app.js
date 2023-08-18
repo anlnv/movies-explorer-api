@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const { errors } = require('celebrate');
 const helmet = require('helmet');
 const bodyParser = require('body-parser');
+const cors = require('cors');
 const signupRouter = require('./routes/signupRouter');
 const signinRouter = require('./routes/signinRouter');
 const auth = require('./middlewares/auth');
@@ -24,6 +25,7 @@ mongoose
   });
 
 const app = express();
+app.use(cors());
 
 app.use(helmet());
 
