@@ -11,7 +11,8 @@ const moviesRouter = require('./routes/movies');
 const NotFoundError = require('./errors/NotFoundError');
 const error = require('./middlewares/errors');
 
-const URL = 'mongodb://127.0.0.1:27017/bitfilmsdb';
+const { URL = 'mongodb://127.0.0.1:27017/bitfilmsdb' } = process.env;
+const { PORT = 3000 } = process.env;
 
 mongoose
   .connect(URL)
@@ -41,6 +42,6 @@ app.use((req, res, next) => next(new NotFoundError('Запрашиваемый �
 app.use(errors());
 app.use(error);
 
-app.listen(3000, () => {
+app.listen(PORT, () => {
   console.log('Сервер запущен');
 });
