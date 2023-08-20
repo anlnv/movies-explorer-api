@@ -4,13 +4,9 @@ const { errors } = require('celebrate');
 const helmet = require('helmet');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const signupRouter = require('./routes/signupRouter');
-const signinRouter = require('./routes/signinRouter');
-const auth = require('./middlewares/auth');
-const usersRouter = require('./routes/users');
-const moviesRouter = require('./routes/movies');
-const NotFoundError = require('./errors/NotFoundError');
 const error = require('./middlewares/errors');
+
+const router = require('./routes');
 
 const { URL = 'mongodb://127.0.0.1:27017/bitfilmsdb' } = process.env;
 const { PORT = 3000 } = process.env;
@@ -32,15 +28,8 @@ app.use(helmet());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.post('/signin', signinRouter);
-app.post('/signup', signupRouter);
+app.use(router);
 
-app.use(auth);
-
-app.use('/movies', moviesRouter);
-app.use('/users', usersRouter);
-
-app.use((req, res, next) => next(new NotFoundError('Запрашиваемый ресурс не найден.')));
 app.use(errors());
 app.use(error);
 

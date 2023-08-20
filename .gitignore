@@ -32,7 +32,7 @@ build
 /frontend/node_modules
 
 # env
-.env
+#.env
 
 # misc
 .env.local
